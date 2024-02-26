@@ -8,9 +8,6 @@ from utils.hashed_url import generate_hash
 
 app = Flask(__name__)
 
-def generate_hash(url):
-    hash_object = hashlib.md5(url.encode())
-    return hash_object.hexdigest()[:6]
 
 @app.route('/generate', methods=['POST'])
 def generate_hashed_url():
