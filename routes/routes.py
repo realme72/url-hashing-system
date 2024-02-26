@@ -14,6 +14,16 @@ def generate_hash(url):
 
 @app.route('/generate', methods=['POST'])
 def generate_hashed_url():
+    """This method generates the hashed url for original url.
+    example payload:
+    {
+        "url": "http://sample.info/?insect=fireman&porter=attraction#cave"
+    }
+    response: 
+    {
+        "hashed_url": "0984ff"
+    }
+    """
     data = request.json
     original_url = data.get('url')
 
@@ -35,6 +45,14 @@ def generate_hashed_url():
 
 @app.route('/<hashed_url>', methods=['GET'])
 def redirect_to_original_url(hashed_url):
+    """
+    this method redirects to original url using hashed_url.
+    response: code: 302 found if the hashed_url is correct.
+    response: 
+    {
+        "original_url": "http://sample.info/?insect=fireman&porter=attraction#cave"
+    }
+    """
     if hashed_url not in URL_MAP:
         return jsonify({'error': 'Hashed URL not found'}), 404
 
